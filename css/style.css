@@ -1,0 +1,262 @@
+/* CONSTANTS */
+/* COLOURS */
+/* EXTENDS */
+.card > .image, .card > .stars > .star-active,
+.card > .stars > .star-inactive {
+  background: center center no-repeat transparent;
+  background-size: contain;
+}
+
+/* RESETS */
+html {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #444444;
+  overflow: hidden;
+  background: #F3F3F3;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+aside,
+section,
+main,
+nav,
+header,
+footer {
+  display: block;
+}
+
+/* MAIN */
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.card-container {
+  position: relative;
+  top: 50%;
+  margin: 0 auto 0 auto;
+  width: 420px;
+  height: 570px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+/* LOADING */
+.loading > .loading-icon, .loading > .loading-icon:before,
+.loading > .loading-icon:after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -62.5px;
+  margin-top: -62.5px;
+}
+
+.loading > .loading-icon:before,
+.loading > .loading-icon:after {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  border: 4px solid #FFFFFF;
+}
+
+.loading {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 164, 53, 0.5);
+}
+
+.loading > .loading-icon {
+  width: 125px;
+  height: 125px;
+}
+
+.loading > .loading-icon:before,
+.loading > .loading-icon:after {
+  content: "";
+  display: block;
+}
+
+.loading > .loading-icon:before {
+  z-index: 0;
+  -webkit-animation: 1s pulse infinite linear;
+          animation: 1s pulse infinite linear;
+}
+
+.loading > .loading-icon:after {
+  z-index: 10;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/617753/loading-default.jpg") center center no-repeat #FFFFFF;
+  background-size: cover;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+  }
+}
+@keyframes pulse {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+}
+/* CARD */
+.card {
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  position: absolute;
+  padding: 15px 15px 30px 15px;
+  width: 420px;
+  height: 550px;
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-transform: translateY(30px) scale(0.94);
+          transform: translateY(30px) scale(0.94);
+  -webkit-transform-origin: 50%, 100%;
+          transform-origin: 50%, 100%;
+  will-change: transform, opacity;
+}
+
+/*
+	Cascade the cards by translation and scale based on
+	their nth-child index
+*/
+.card:nth-child(1) {
+  opacity: 1;
+  z-index: 3;
+  -webkit-transform: translateY(0px) scale(1);
+          transform: translateY(0px) scale(1);
+}
+
+.card:nth-child(2) {
+  opacity: 1;
+  z-index: 2;
+  -webkit-transform: translateY(10px) scale(0.98);
+          transform: translateY(10px) scale(0.98);
+}
+
+.card:nth-child(3) {
+  opacity: 1;
+  z-index: 1;
+  -webkit-transform: translateY(20px) scale(0.96);
+          transform: translateY(20px) scale(0.96);
+}
+
+.card.current {
+  pointer-events: auto;
+}
+
+.card.animated {
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card > .image {
+  margin: 0 auto 30px 0;
+  width: 390px;
+  height: 390px;
+}
+
+.card > .image > .image-icon {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  background: center center no-repeat transparent;
+  background-size: contain;
+}
+
+.card > .image > .image-icon.approve {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/617753/icon-approve.svg");
+}
+
+.card > .image > .image-icon.reject {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/617753/icon-reject.svg");
+}
+
+.card > .name {
+  margin: 0 auto 30px 0;
+  display: block;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.card > .stars {
+  margin: 0 auto 0 auto;
+  width: 216px;
+}
+
+.card > .stars:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card > .stars > .star-active,
+.card > .stars > .star-inactive {
+  float: left;
+  margin-right: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.card > .stars > .star-active:last-child,
+.card > .stars > .star-inactive:last-child {
+  margin-right: 0;
+}
+
+.card > .stars > .star-active {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/617753/star-active.svg");
+}
+
+.card > .stars > .star-inactive {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/617753/star-inactive.svg");
+}
