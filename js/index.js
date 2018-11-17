@@ -43,8 +43,10 @@ var card = Vue.component('card', {
 		return {
 			showing: true,
 			maxStars: 5,
-			animating: true, // Controls CSS class with transition declaration
-			threshold: window.innerWidth / 3, // Breakpoint distance to approve/reject a card
+			animating: true, // Controls CSS class with transition
+								// declaration
+			threshold: window.innerWidth / 3, // Breakpoint distance to
+												// approve/reject a card
 			maxRotation: 20, // Max rotation value in degrees
 			position: {
 				x: 0,
@@ -87,8 +89,8 @@ var card = Vue.component('card', {
 			onstart: function onstart() {
 
 				/*
-                                	Disable CSS transitions during dragging.
-                                */
+				 * Disable CSS transitions during dragging.
+				 */
 
 				self.animating = false;
 
@@ -96,10 +98,11 @@ var card = Vue.component('card', {
 			onmove: function onmove(event) {
 
 				/*
-                                   	Calculate new x and y coordinate values from the local value and
-                                   	the event object value. Also adjust element rotation transformation
-                                   	based on proximity to approve/reject threshold.
-                                   */
+				 * Calculate new x and y coordinate values from the local value
+				 * and the event object value. Also adjust element rotation
+				 * transformation based on proximity to approve/reject
+				 * threshold.
+				 */
 
 				var x = (self.position.x || 0) + event.dx;
 				var y = (self.position.y || 0) + event.dy;
@@ -118,10 +121,11 @@ var card = Vue.component('card', {
 				self.position.rotation = rotate;
 
 				/*
-                                     	Change icon image type based on drag direction and adjust opacity
-                                     	from 0-1 based on current rotation amount. Also emit an event to
-                                     	show/hide respective button below cards during dragging.
-                                     */
+				 * Change icon image type based on drag direction and adjust
+				 * opacity from 0-1 based on current rotation amount. Also emit
+				 * an event to show/hide respective button below cards during
+				 * dragging.
+				 */
 
 				if (rotate > 0) {
 					self.icon.type = 'approve';
@@ -139,9 +143,10 @@ var card = Vue.component('card', {
 			onend: function onend(event) {
 
 				/*
-                                 	Check if card has passed the approve/reject threshold and emit approval
-                                 	value change event, otherwise reset card and icon to default values.
-                                 */
+				 * Check if card has passed the approve/reject threshold and
+				 * emit approval value change event, otherwise reset card and
+				 * icon to default values.
+				 */
 
 				self.animating = true;
 
@@ -179,10 +184,10 @@ var card = Vue.component('card', {
 				this.animating = true;
 
 				/*
-                           	Move card off-screen in direction of approve/reject status,
-                           	then remove it from the DOM, thereby adjusting the CSS
-                           	nth-child selectors.
-                           */
+				 * Move card off-screen in direction of approve/reject status,
+				 * then remove it from the DOM, thereby adjusting the CSS
+				 * nth-child selectors.
+				 */
 
 				var x = window.innerWidth + window.innerWidth / 2 + this.$el.offsetWidth;
 
@@ -256,9 +261,9 @@ var app = new Vue({
 				var data = response.map(function (object) {
 
 					/*
-                                               	Construct a new array with objects containing only
-                                               	the relevent data from the original response data
-                                               */
+					 * Construct a new array with objects containing only the
+					 * relevent data from the original response data
+					 */
 
 					return {
 						name: object.name.first + ' ' + object.name.last,
@@ -284,9 +289,9 @@ var app = new Vue({
 		setApproval: function setApproval(approval) {
 
 			/*
-                                               	Change approval value for current card, and request new data
-                                               	if at the end of the card array
-                                               */
+			 * Change approval value for current card, and request new data if
+			 * at the end of the card array
+			 */
 
 			this.cards.data[this.cards.index].approved = approval;
 			this.cards.index++;
