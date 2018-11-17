@@ -230,7 +230,6 @@ var app = new Vue({
 
 
 
-
 	data: {
 		isLoading: true, // Toggles the loading overlay
 		cards: {
