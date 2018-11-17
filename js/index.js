@@ -20,23 +20,25 @@ var card = Vue.component('card', {
 			type: Boolean } },
 
 
-	template: '\n\t\t<div v-if="showing" class="card"\n\t\t\tv-bind:class="{ animated: animating, current: current }"\n\t\t\tv-bind:style="{ transform: returnTransformString }">\n\t\t\t<div class="image"\n\t\t\t\tv-bind:style="{ backgroundImage: returnImageString }">\n\t\t\t\t<div class="image-icon"\n\t\t\t\t\tv-bind:class="icon.type"\n\t\t\t\t\tv-bind:style="{ opacity: icon.opacity }">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<h1 class="name">{{ fullName }}</h1>\n<div class="content">{{ content }}</div>\n\t\t\t\n\t\t\t</div>\n\t\t</div>\n\t',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	template: 
+		'\n\t\t'
+		+'<div v-if="showing" class="card"\n\t\t\tv-bind:class="{ animated: animating, current: current }"\n\t\t\tv-bind:style="{ transform: returnTransformString }">'
+			+'\n\t\t\t'
+			+'<div class="image"\n\t\t\t\tv-bind:style="{ backgroundImage: returnImageString }">'
+				+'\n\t\t\t\t'
+				+'<div class="image-icon"\n\t\t\t\t\tv-bind:class="icon.type"\n\t\t\t\t\tv-bind:style="{ opacity: icon.opacity }">'
+					+'\n\t\t\t\t'
+				+'</div>'
+				+'\n\t\t\t'
+			+'</div>'
+			+'\n\t\t\t'
+			+'<h1 class="name">'
+				+'{{ fullName }}'
+			+'</h1>'
+			+'<div class="content">'
+				+'{{ content }}'
+			+'</div>'
+		+'</div>',
 
 
 	data: function data() {
