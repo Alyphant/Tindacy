@@ -17,16 +17,28 @@ var card = Vue.component('card', {
 			required: false },
 
 		approved: {
-			type: Boolean } },
+			type: Boolean }, 
+		
+		nextCardLeft: {
+			type: Number
+		},
+			
+		nextCardRight: {
+			type: Number
+		}
+		
+		},
+			
+
 
 
 	template: 
 		'\n\t\t'
-		+'<div v-if="showing" class="card"\n\t\t\tv-bind:class="{ animated: animating, current: current }"\n\t\t\tv-bind:style="{ transform: returnTransformString }">'
+		+'<div v-if="showing" class="card" v-bind:class="{ animated: animating, current: current }" v-bind:style="{ transform: returnTransformString }">'
 			+'\n\t\t\t'
-			+'<div class="image"\n\t\t\t\tv-bind:style="{ backgroundImage: returnImageString }">'
+			+'<div class="image" v-bind:style="{ backgroundImage: returnImageString }">'
 				+'\n\t\t\t\t'
-				+'<div class="image-icon"\n\t\t\t\t\tv-bind:class="icon.type"\n\t\t\t\t\tv-bind:style="{ opacity: icon.opacity }">'
+				+'<div class="image-icon" v-bind:class="icon.type" v-bind:style="{ opacity: icon.opacity }">'
 					+'\n\t\t\t\t'
 				+'</div>'
 				+'\n\t\t\t'
@@ -44,7 +56,6 @@ var card = Vue.component('card', {
 	data: function data() {
 		return {
 			showing: true,
-			maxStars: 5,
 			animating: true, // Controls CSS class with transition
 								// declaration
 			threshold: window.innerWidth / 3, // Breakpoint distance to
@@ -218,8 +229,28 @@ var card = Vue.component('card', {
 
 var app = new Vue({
 	el: '#app',
-	template: '\n\t\t<div id="app">\n\n\t\t\t<div v-show="isLoading" class="loading">\n\t\t\t\t<div class="loading-icon"></div>\n\t\t\t</div>\n\n\t\t\t<div class="card-container">\n\t\t\t\t<card v-for="(card, index) in cards.data" :key="index"\n\t\t\t\t\tv-bind:current="index === cards.index"\n\t\t\t\t\tv-bind:content="card.content"\n\t\t\t\t\tv-bind:fullName="card.name"\n\t\t\t\t\tv-bind:picture="card.picture"\n\t\t\t\t\tv-bind:approved="card.approved"\n\t\t\t\t\tv-on:draggedThreshold="setApproval">\n\t\t\t\t</card>\n\t\t\t</div>\n\n\t\t</div>\n\t',
-
+	template: 
+		'\n\t\t'
+		+'<div id="app">'
+			+'\n\n\t\t\t'
+			+'<div v-show="isLoading" class="loading">'
+				+'\n\t\t\t\t'
+				+'<div class="loading-icon">'
+				+'</div>'
+				+'\n\t\t\t'
+			+'</div>'
+			+'\n\n\t\t\t'
+			+'<div class="card-container">'
+				+'\n\t\t\t\t'
+				+'<card v-for="(card, index) in cards.data" :key="index" v-bind:current="index === cards.index" v-bind:content="card.content" v-bind:fullName="card.name" v-bind:picture="card.picture" v-bind:approved="card.approved" v-on:draggedThreshold="setApproval">'
+					+'\n\t\t\t\t'
+				+'</card>'
+				+'\n\t\t\t'
+			+'</div>'
+			+'\n\n\t\t'
+		+'</div>'
+		+'\n\t',
+	
 
 
 
@@ -242,7 +273,8 @@ var app = new Vue({
 		cards: {
 			data: null, // Array for card data
 			index: 0, // Current index in the cards.data array
-			max: 3 // Max cards to show in each stack
+			max: 20, // Max cards to show in each stack
+			next: 0
 		} },
 
 	methods: {
@@ -271,7 +303,10 @@ var app = new Vue({
 						name: object.name.first + ' ' + object.name.last,
 						content: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
 						picture: object.picture.large,
-						approved: null };
+						approved: null, 
+						nextCardLeft: 1,
+						nextCardRight: 2
+					};
 
 				});
 
@@ -294,6 +329,7 @@ var app = new Vue({
 			 * at the end of the card array
 			 */
 
+			//this.cards.data[this.cards.next].approved = approval;
 			this.cards.data[this.cards.index].approved = approval;
 			this.cards.index++;
 
