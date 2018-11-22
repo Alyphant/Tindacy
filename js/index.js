@@ -1,5 +1,10 @@
+var nextCard = 1;
 var card = Vue.component('card', {
 	props: {
+		cardID: {
+			type: Number,
+			required: true
+		},
 		current: {
 			type: Boolean,
 			required: true },
@@ -20,13 +25,14 @@ var card = Vue.component('card', {
 			type: Boolean }, 
 		
 		nextCardLeft: {
-			type: Number
+			type: Number,
+			required: true
 		},
 			
 		nextCardRight: {
-			type: Number
-		}
-		
+			type: Number,
+			required: true
+		}	
 		},
 			
 
@@ -45,7 +51,14 @@ var card = Vue.component('card', {
 			+'</div>'
 			+'\n\t\t\t'
 			+'<h1 class="name">'
+				+'CardToLeft '
+				+'{{ nextCardLeft }}'
+				+' - '
 				+'{{ fullName }}'
+				+' - ID'
+				+'{{ cardID }}'
+				+' - CardToRight '
+				+'{{ nextCardRight }}'
 			+'</h1>'
 			+'<div class="content">'
 				+'{{ content }}'
@@ -142,9 +155,11 @@ var card = Vue.component('card', {
 
 				if (rotate > 0) {
 					self.icon.type = 'approve';
+					nextCard = self.nextCardRight;
 				} else
 				if (rotate < 0) {
 					self.icon.type = 'reject';
+					nextCard = self.nextCardLeft;
 				}
 
 				var opacityAmount = Math.abs(rotate) / self.maxRotation;
@@ -239,11 +254,21 @@ var app = new Vue({
 				+'</div>'
 				+'\n\t\t\t'
 			+'</div>'
-			+'\n\n\t\t\t'
+			+'<h1 v-bind:nextCard="nextCard">'
+				+'NextCardValue: '
+				+'{{ nextCard }}'
+			+'</h1>'
 			+'<div class="card-container">'
 				+'\n\t\t\t\t'
-				+'<card v-for="(card, index) in cards.data" :key="index" v-bind:current="index === cards.index" v-bind:content="card.content" v-bind:fullName="card.name" v-bind:picture="card.picture" v-bind:approved="card.approved" v-on:draggedThreshold="setApproval">'
-					+'\n\t\t\t\t'
+				+'<card v-for="(card, index) in cards.data" :key="index"' 
+						+'v-bind:current="index === cards.index"'
+						+'v-bind:content="card.content"' 
+						+'v-bind:nextCardLeft="card.nextCardLeft"' 
+						+'v-bind:nextCardRight="card.nextCardRight"' 
+						+'v-bind:cardID="card.cardID" v-bind:fullName="card.name"' 
+						+'v-bind:picture="card.picture"'
+						+'v-bind:approved="card.approved"'
+						+'v-on:draggedThreshold="setApproval">'
 				+'</card>'
 				+'\n\t\t\t'
 			+'</div>'
@@ -291,21 +316,22 @@ var app = new Vue({
 			request.onload = function () {
 
 				var response = JSON.parse(request.responseText).results;
-
+				var i = 0;
 				var data = response.map(function (object) {
 
 					/*
 					 * Construct a new array with objects containing only the
 					 * relevent data from the original response data
 					 */
-
+					i++;
 					return {
 						name: object.name.first + ' ' + object.name.last,
-						content: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+						content: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.',
 						picture: object.picture.large,
 						approved: null, 
-						nextCardLeft: 1,
-						nextCardRight: 2
+						nextCardLeft: i-1,
+						nextCardRight: i+1,
+						cardID: i
 					};
 
 				});
@@ -329,7 +355,7 @@ var app = new Vue({
 			 * at the end of the card array
 			 */
 
-			//this.cards.data[this.cards.next].approved = approval;
+//			this.cards.data[nextCard].approved = approval;
 			this.cards.data[this.cards.index].approved = approval;
 			this.cards.index++;
 
