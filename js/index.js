@@ -1,9 +1,8 @@
-var nextCard = 1;
+var nextStack = 1;
 var card = Vue.component('card', {
 	props: {
 		cardID: {
 			type: Number,
-			required: true
 		},
 		current: {
 			type: Boolean,
@@ -26,12 +25,10 @@ var card = Vue.component('card', {
 		
 		nextCardLeft: {
 			type: Number,
-			required: true
 		},
 			
 		nextCardRight: {
 			type: Number,
-			required: true
 		}	
 		},
 			
@@ -88,7 +85,8 @@ var card = Vue.component('card', {
 	computed: {
 		returnImageString: function returnImageString() {
 
-			return 'url(' + this.picture + ')';
+//			return 'url(' + this.picture + ')';
+			return 'url(pics/' +this.picture+ ')'
 
 		},
 		returnTransformString: function returnTransformString() {
@@ -155,11 +153,11 @@ var card = Vue.component('card', {
 
 				if (rotate > 0) {
 					self.icon.type = 'approve';
-					nextCard = self.nextCardRight;
+					nextStack = self.nextCardRight;
 				} else
 				if (rotate < 0) {
 					self.icon.type = 'reject';
-					nextCard = self.nextCardLeft;
+					nextStack = self.nextCardLeft;
 				}
 
 				var opacityAmount = Math.abs(rotate) / self.maxRotation;
@@ -254,9 +252,9 @@ var app = new Vue({
 				+'</div>'
 				+'\n\t\t\t'
 			+'</div>'
-			+'<h1 v-bind:nextCard="nextCard">'
-				+'NextCardValue: '
-				+'{{ nextCard }}'
+			+'<h1 v-bind:nextStack="nextStack">'
+				+'NextStackValue: '
+				+'{{ nextStack }}'
 			+'</h1>'
 			+'<div class="card-container">'
 				+'\n\t\t\t\t'
@@ -276,23 +274,6 @@ var app = new Vue({
 		+'</div>'
 		+'\n\t',
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	data: {
 		isLoading: true, // Toggles the loading overlay
 		cards: {
@@ -309,32 +290,41 @@ var app = new Vue({
 			this.cards.data = null;
 			var self = this;
 
-			// Get a random list of people
+//			// Get a random list of people
 			var request = new XMLHttpRequest();
 			request.open('GET', 'https://randomuser.me/api/?results=' + this.cards.max, true);
 
 			request.onload = function () {
 
 				var response = JSON.parse(request.responseText).results;
-				var i = 0;
-				var data = response.map(function (object) {
 
-					/*
-					 * Construct a new array with objects containing only the
-					 * relevent data from the original response data
-					 */
-					i++;
-					return {
-						name: object.name.first + ' ' + object.name.last,
-						content: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.',
-						picture: object.picture.large,
-						approved: null, 
-						nextCardLeft: i-1,
-						nextCardRight: i+1,
-						cardID: i
-					};
+if(nextStack == 1){
+	var data = cardstacks.dwarfs.data;
+}else {
+	var data = cardstacks.orcs.data;
+}
 
-				});
+
+				
+//				var i = 0;
+//				var data = response.map(function (object) {
+//
+//					/*
+//					 * Construct a new array with objects containing only the
+//					 * relevent data from the original response data
+//					 */
+//					i++;
+//					return {
+//						name: object.name.first + ' ' + object.name.last,
+//						content: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.',
+//						picture: object.picture.large,
+//						approved: null, 
+//						nextCardLeft: i-1,
+//						nextCardRight: i+1,
+//						cardID: i
+//					};
+//
+//				});
 
 				// Fake delay for purposes of demonstration
 				setTimeout(function () {
@@ -355,7 +345,6 @@ var app = new Vue({
 			 * at the end of the card array
 			 */
 
-//			this.cards.data[nextCard].approved = approval;
 			this.cards.data[this.cards.index].approved = approval;
 			this.cards.index++;
 
@@ -371,3 +360,66 @@ var app = new Vue({
 		this.getData();
 
 	} });
+
+var cardstacks = {
+		orcs: {
+			data: [
+				{
+					cardID: 1,
+					name: "Peter",
+					content: "Hier steht Content",					
+					picture: "pic1.jpg",	
+					approved: null
+					},
+				{
+					cardID: 2,
+					name: "Karl",
+					content: "Hier steht auch Content",					
+					picture: "pic2.jpg",
+					approved: null
+					},
+				{
+					cardID: 3,
+					name: "Gunther",
+					content: "Willst du wieder Orcs?",					
+					picture: "pic3.jpg",
+					approved: null, 					
+					nextCardLeft: 1,					
+					nextCardRight: 2
+					},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		},
+		dwarfs: {
+			data: [
+				{
+					cardID: 1,
+					name: "Peter",
+					content: "Hier steht Content",					
+					picture: "dwarf1.jpg",	
+					approved: null
+					},
+				{
+					cardID: 2,
+					name: "Karl",
+					content: "Hier steht auch Content",					
+					picture: "dwarf2.jpg",
+					approved: null
+					},
+				{
+					cardID: 3,
+					name: "Gunther",
+					content: "Willst du wieder Zwerge?",					
+					picture: "dwarf3.jpg",
+					approved: null, 					
+					nextCardLeft: 2,					
+					nextCardRight: 1
+					},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		}
+};
