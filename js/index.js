@@ -1,4 +1,21 @@
-var nextStack = 1;
+var nextStack 		= 1;
+
+var scheu 			= false;
+var abhanegig 		= false;
+var eitel 			= false;
+var asozial 		= false;
+var undiszipliniert = false;
+var eingebildet 	= false;
+var heimtueckisch 	= false;
+var zynisch 		= false;
+var gierig 			= false;
+var manipulativ 	= false;
+var streitsuechtig 	= false;
+var chaotisch 		= false;
+var egoistisch 		= false;
+var chaotisch		= false;
+var ruecksichtslos 	= false;
+
 var card = Vue.component('card', {
 	props: {
 		cardID: {
@@ -48,14 +65,7 @@ var card = Vue.component('card', {
 			+'</div>'
 			+'\n\t\t\t'
 			+'<h1 class="name">'
-				+'CardToLeft '
-				+'{{ nextCardLeft }}'
-				+' - '
 				+'{{ fullName }}'
-				+' - ID'
-				+'{{ cardID }}'
-				+' - CardToRight '
-				+'{{ nextCardRight }}'
 			+'</h1>'
 			+'<div class="content">'
 				+'{{ content }}'
@@ -85,7 +95,6 @@ var card = Vue.component('card', {
 	computed: {
 		returnImageString: function returnImageString() {
 
-//			return 'url(' + this.picture + ')';
 			return 'url(pics/' +this.picture+ ')'
 
 		},
@@ -153,11 +162,15 @@ var card = Vue.component('card', {
 
 				if (rotate > 0) {
 					self.icon.type = 'approve';
-					nextStack = self.nextCardRight;
+					if(self.nextCardRight >= 0){
+						nextStack = self.nextCardRight;
+					}
 				} else
 				if (rotate < 0) {
 					self.icon.type = 'reject';
-					nextStack = self.nextCardLeft;
+					if(self.nextCardLeft >= 0){
+						nextStack = self.nextCardLeft;
+					}
 				}
 
 				var opacityAmount = Math.abs(rotate) / self.maxRotation;
@@ -252,10 +265,6 @@ var app = new Vue({
 				+'</div>'
 				+'\n\t\t\t'
 			+'</div>'
-			+'<h1 v-bind:nextStack="nextStack">'
-				+'NextStackValue: '
-				+'{{ nextStack }}'
-			+'</h1>'
 			+'<div class="card-container">'
 				+'\n\t\t\t\t'
 				+'<card v-for="(card, index) in cards.data" :key="index"' 
@@ -297,12 +306,54 @@ var app = new Vue({
 			request.onload = function () {
 
 				var response = JSON.parse(request.responseText).results;
-
-if(nextStack == 1){
-	var data = cardstacks.dwarfs.data;
-}else {
-	var data = cardstacks.orcs.data;
+switch(nextStack){
+case 1:
+	var data = cardstacks.begruessung.data;
+	break;
+case 2:
+	var data = cardstacks.einarbeitung.data;
+	break;
+case 3:
+	var data = cardstacks.campusleben.data;
+	break;
+case 4:
+	var data = cardstacks.networking.data;
+	break;
+case 5:
+	var data = cardstacks.aergerMitAsta.data;
+	break;
+case 6:
+	var data = cardstacks.fakultaetsRatsSitzung.data;
+	break;
+case 7:
+	var data = cardstacks.begruessungDerErstis.data;
+	break;
+case 8:
+	var data = cardstacks.begruessung.data;
+	break;
+case 9:
+	var data = cardstacks.begruessung.data;
+	break;
+case 10:
+	var data = cardstacks.begruessung.data;
+	break;
+case 11:
+	var data = cardstacks.begruessung.data;
+	break;
+case 12:
+	var data = cardstacks.begruessung.data;
+	break;
+case 13:
+	var data = cardstacks.begruessung.data;
+	break;
+case 14:
+	var data = cardstacks.begruessung.data;
+	break;
+case 15:
+	var data = cardstacks.begruessung.data;
+	break;
 }
+
 
 
 				
@@ -362,64 +413,235 @@ if(nextStack == 1){
 	} });
 
 var cardstacks = {
-		orcs: {
+		begruessung: {
 			data: [
 				{
 					cardID: 1,
-					name: "Peter",
-					content: "Hier steht Content",					
-					picture: "pic1.jpg",	
+					name: "Frau Meier",
+					content: "Hallo, hast du einen Penis?",					
+					picture: "frauMeierErnst.jpg",	
 					approved: null
 					},
 				{
 					cardID: 2,
-					name: "Karl",
-					content: "Hier steht auch Content",					
-					picture: "pic2.jpg",
+					name: "Frau Meier",
+					content: "Wir haben hier keine Anzugspflicht, dir steht es frei im Jogginganzug zu erscheinen *lacht*",					
+					picture: "frauMeierLacht.jpg",
 					approved: null
 					},
 				{
 					cardID: 3,
-					name: "Gunther",
-					content: "Willst du wieder Orcs?",					
-					picture: "pic3.jpg",
+					name: "Der Hausmeister",
+					content: "Hallo, du musst der Neue sein. Bin grad auf dem Weg zum Automaten um Kaffee zu holen. Möchtest du mit Milch oder ohne?",					
+					picture: "hausmeister1.jpg",
 					approved: null, 					
-					nextCardLeft: 1,					
-					nextCardRight: 2
+					nextCardLeft: 2,					
+					nextCardRight: 3
+					},
+				{
+					cardID: 4,
+					name: "Daniel Duesentrieb",
+					content: "Wir haben aktuell wahnsinig tolle neue Moeglichkeiten in der KI entwickelt. Es waere atemberaubend wenn Sie uns ermoeglichen koennten einen Kurs testweise von einer KI leiten zu lassen.",					
+					picture: "danielDuesentrieb.jpg",	
+					approved: null
 					},
 			], // Array for card data
 			index: 0, // Current index in the cards.data array
 			max: 20, // Max cards to show in each stack
 			next: 0
 		},
-		dwarfs: {
+		einarbeitung: {
 			data: [
 				{
 					cardID: 1,
-					name: "Peter",
-					content: "Hier steht Content",					
-					picture: "dwarf1.jpg",	
-					approved: null
+					name: "Frau Meier",
+					content: "Wir haben hier noch einige Seiten an Dienstvorschriften die Sie lesen muessten. *packt Stapel auf den Tisch* Die meisten überfliegen sie zwar nru, aber besser waere es schon wenn Sie die gruendlich studieren wuerden.",					
+					picture: "frauMeierErnst.jpg",	
+					approved: null,
+					nextCardLeft: 5,					
+					nextCardRight: 4
 					},
 				{
 					cardID: 2,
-					name: "Karl",
-					content: "Hier steht auch Content",					
-					picture: "dwarf2.jpg",
+					name: "Der Hausmeister",
+					content: "Wir brauchen merh Gelder um die Flure neu zu streichen. Ich mein ein Jahr koennte man vielleicht noch warten aber mir waere schon lieber wenn wir das jetzt demnaechst noch erledigen.",					
+					picture: "hausmeister2.jpg",
 					approved: null
-					},
-				{
-					cardID: 3,
-					name: "Gunther",
-					content: "Willst du wieder Zwerge?",					
-					picture: "dwarf3.jpg",
-					approved: null, 					
-					nextCardLeft: 2,					
-					nextCardRight: 1
 					},
 			], // Array for card data
 			index: 0, // Current index in the cards.data array
 			max: 20, // Max cards to show in each stack
 			next: 0
-		}
+		},
+		campusleben: {
+			data: [
+				{
+					cardID: 1,
+					name: "Gunda Gantel",
+					content: "Hallo mein Name ist Gunda und ich komme als Vertreterin der philosophischen Fakultät. Ihr Vorgaenger hatte uns zugesichert, dass wir einen neuen eigenen Fachbereich bekommen.",					
+					picture: "gundula2.jpg",	
+					approved: null
+				},
+				{
+					cardID: 2,
+					name: "Der Hausmeister",
+					content: "Diese Spinner wollen doch jetzt tatsächlich überall Unisex-Toiletten. Wissen Sie was das bedeutet? Ich muesste auf dem gesamten Campus alle Schilder abmachen, neue herstellen lassen und diese auch noch aufhängen. Warum wollen diese Hippies überhaupt gemeinsam auf Klo? Ich mein ich will beim scheißen einfach nru meine Ruhe.",					
+					picture: "hausmeister3.jpg",
+					approved: null
+				},
+				{
+					cardID: 3,
+					name: "Frau Meier",
+					content: "Wow, ich muss ja sagen, dass ich den neuen Park den sie genehmigt haben wirklich beeindruckend finde. Das wird die gesamte Universität aufwerten. Eine Frage wäre da allerdings noch zu klären, damit ich das Gelände auch endlich ordnungsgemäß in unser System eintragen kann. Welchen Namen soll der neue Park tragen?",					
+					picture: "frauMeier.jpg",	
+					approved: null
+				},
+				{
+					cardID: 4,
+					name: "Hans Hinterhalt",
+					content: "Was? So wollen Sie den Park nennen? Ich weiß wir geraten öfter aneinander aber bei so einer Namensgebung da MUSS ich einfach widersprechen.",					
+					picture: "hansHinterhalt.jpg",	
+					approved: null,
+					nextCardLeft: 7,					
+					nextCardRight: 6
+				},
+				{
+					cardID: 5,
+					name: "Der Hausmeister",
+					content: "Hi Chef, ich habe mir überlegt wie wir den Park noch weiter verbessern können. Es gäbe da eine tolle Stelle um eine Fliederlaube zu bauen...einziges Problem, da sind Parkplätze für Blinde. Aber ich mein welcher Blinde fährt denn schon Auto?",					
+					picture: "hausmeister4.jpg",	
+					approved: null
+				},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		},
+		networking: {
+			data: [
+				{
+					cardID: 1,
+					name: "Geldsack Mc Gold",
+					content: "Hallo, lange nicht gesehen. Ich war grad in der Stadt und wollte kurz auf einen Kaffee reinschauen. Du hast doch letztes mal erzählt, dass du gerne Golf spielst und als ich mir gestern ein neues Set geholt habe, da hab ich diesen Schläger gesehen und gedacht, dass das genau der richtige sein muss für dich.",					
+					picture: "geldsack.jpg",	
+					approved: null
+					},
+				{
+					cardID: 2,
+					name: "Geldsack Mc Gold",
+					content: "*lacht* Nun gut, eine Kleinigkeit hätte ich aber noch. Ihr habt einen guten Ruf was BWL Absolventen an geht und ich dachte es wäre vielleicht im Interesse der Universität dort noch ein wenig Wirtschaftsnähe rein zu bringen. Ich würde vorschlagen, dass wir eines eurer Module unterrichten können. Dafür würde ich extra einen unserer besten Experten abbeordern.",					
+					picture: "geldsack2.jpg",
+					approved: null
+					},
+				{
+					cardID: 3,
+					name: "Frau Meier",
+					content: "Ich möchte Sie in ihren ersten Tagen ja ungern unter druck setzen, aber die Internationale Wirtschaftsanalysten Messe, die wir jedes Jahr ausrichten muss langsam geplant werden für das kommende Jahr. Sie wissen ja selbst, dass die Messe einen Großteil unseres Haushalts finanziert",					
+					picture: "frauMeierErnst.jpg",
+					approved: null, 					
+					nextCardLeft: 8,					
+					nextCardRight: 9
+					},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		},
+		aergerMitAsta: {
+			data: [
+				{
+					cardID: 1,
+					name: "Guenter Gras",
+					content: "Hallo erst mal, ich bin ja nicht so der Typ der gerne Streitet aber irgendwie haben sie in ihrer letzter Sitzung echt voll die Gefühle von Minderheiten verletzt und das ist so garnicht cool. Ich mein StudentX ist doch nicht zu viel verlangt. Bei liebe Student/innen fühlen sich ja doch auch viele LEute total ausgeschlossen. Ich will da auch garkeinen Ärger machen oder so aber gut ist das nicht.",					
+					picture: "guenter6.jpg",	
+					approved: null,
+					nextCardLeft: 10,					
+					nextCardRight: 11
+					},
+				{
+					cardID: 2,
+					name: "Guenter Gras",
+					content: "Oh, einen Punkt hätte ich doch fast vergessen. Wir treffen uns ja hier regelmäßig zum Plenum mit einigen StudentX und die Preise für Vegane Bio Fairtrade Küche sind enorm gestiegen im letzten Jahr. Wir bräuchten vielleicht ein wenig mehr Geld, damit wir weiterhin auch auf faire Lebensmittel bei unseren Veranstaltungen setzen können.",					
+					picture: "guenter5.jpg",
+					approved: null
+					},
+				{
+					cardID: 3,
+					name: "Der Hausmeister",
+					content: "Oh man dieser Typ schon wieder. Kam der aus Ihrem Büro? Naja wie dem auch sei, die planen wohl dieses Jahr tatsächlich, dass wir von unserem knappen Budget noch irgendwas an die 3.Welt spenden sollen. Wovon sollen wir dann aber hier die Gebäude in schuss halten und Streusalz für die WEge kaufen? Ideen haben diese Jungs. Sollen die doch selber spenden.",					
+					picture: "hausmeister5.jpg",
+					approved: null
+					},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		},
+		fakultaetsRatsSitzung: {
+			data: [
+				{
+					cardID: 1,
+					name: "Du im Spiegel",
+					content: "Boah voll verplant, dass gleich diese Sitzung ist. Hätte gestern nicht so lange machen dürfen. Was mach ich nur? Entweder ich geh einfach so wie ich bin oder ich komme ein paar Minuten später aber habe noch Zeit mich eben ein wenig frisch zu machen.",					
+					picture: "duImSpiegel.jpg",	
+					approved: null
+					},
+				{
+					cardID: 2,
+					name: "Guenter Gras",
+					content: "Hallooo? Alter hast du mitbekommen, dass die Informatiker sich ein neues Edulab finanzieren lassen wollen? Wir haben doch funktionierende Computer, wofür brauchen die schon wieder neue? Unser Kunstraum ist doch viel wichtiger, der soll schon seit Jahren vergrößert werden",					
+					picture: "guenter4.jpg",
+					approved: null,
+					nextCardLeft: 12,					
+					nextCardRight: 13
+					},
+				{
+					cardID: 3,
+					name: "Frau Meier",
+					content: "Entschuldigung, ich habe eben ein wenig zuhören müssen und auch wenn es mich nichts angeht, so muss ich sagen ich finde Ihre Entscheidung nciht richtig. Als Leiter einer Universität muss man auch mal entgegen seiner eigenen Vorzüge entscheiden und sich zum Wohle der Universität einsetzen.",					
+					picture: "frauMeier.jpg",
+					approved: null
+				},
+				{
+					cardID: 3,
+					name: "Sportstudentin Schantall",
+					content: "Was ist das für 1 scheis mit biotohp? Besser 1 nicen place für squats *macht eine kniebeuge*",					
+					picture: "schantallSport.jpg",
+					approved: null
+				},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		},
+		begruessungDerErstis: {
+			data: [
+				{
+					cardID: 1,
+					name: "Sportstudentin Schantall",
+					content: "Hi prof, willst du dich nicht zu mir auf die couch setzen?",					
+					picture: "schantallCouch.jpg",	
+					approved: null,
+					nextCardLeft: 14,					
+					nextCardRight: 15
+					},
+				{
+					cardID: 2,
+					name: "Guenter Gras",
+					content: "Hallooo Director, wir fänden das irgendwie voll cool wenn du uns helfen könntest ein paar Spiele zu organisieren für die Erstsemester. Irgendwie bekommen wir das mit der Planung nicht so richtig hin.",					
+					picture: "guenter3.jpg",
+					approved: null
+					},
+				{
+					cardID: 3,
+					name: "Gunda Gantel",
+					content: "Erstsemesterwoche hin oder her. Herr Direktor, es geht nicht, dass die Studenten immer bis spät in die Nacht noch auf dem Campus sind. Die Kollegen und ich sind für einen Zapfenstreich um 20Uhr.",					
+					picture: "gundula1.jpg",
+					approved: null
+				},
+			], // Array for card data
+			index: 0, // Current index in the cards.data array
+			max: 20, // Max cards to show in each stack
+			next: 0
+		},
 };
