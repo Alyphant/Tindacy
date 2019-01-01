@@ -57,7 +57,7 @@ footer {
   position: relative;
   top: 50%;
   margin: 0 auto 0 auto;
-  width: 420px;
+  width: 320px;
   height: 570px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -149,7 +149,7 @@ footer {
   top: 0;
   position: absolute;
   padding: 15px 15px 30px 15px;
-  width: 420px;
+  width: 320px;
   height: 550px;
   border-radius: 8px;
   background: #FFFFFF;

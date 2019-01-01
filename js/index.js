@@ -400,36 +400,28 @@ case 7:
 	var data = cardstacks.begruessungDerErstis.data;
 	break;
 case 8:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 9:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 10:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 11:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 12:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 13:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 14:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 case 15:
-	window.alert("Ende Nr."+nextStack);
-	var data = cardstacks.begruessung.data;
+	window.open("http://5c16c86bbb7a1.prepaiddomain.de/social/social.html","_self");
 	break;
 }
 
@@ -497,7 +489,7 @@ var cardstacks = {
 				{
 					cardID: 1,
 					name: "Sekretärin Saskia",
-					content: "*Am Telefon* Entschuldigung, uns ist ein kleienr Fehler unterlaufen, wir haben vergessen einzutragen welches Geschlecht sie haben, das ist für unsere Abrechnung wichtig. #Bist du ein Mann?#",					
+					content: "*Am Telefon* Entschuldigung, uns ist ein kleiner Fehler unterlaufen, wir haben vergessen einzutragen welches Geschlecht sie haben, das ist für unsere Abrechnung wichtig. #Bist du ein Mann?#",					
 					picture: "frauMeier3.jpg",	
 					approved: null
 					},
